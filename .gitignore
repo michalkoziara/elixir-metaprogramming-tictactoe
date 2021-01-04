@@ -26,5 +26,8 @@ tictactoe-*.tar
 # Temporary files for e.g. tests
 /tmp
 
+# Escript
+tictactoe
+
 # IDE
 .idea

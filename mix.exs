@@ -4,6 +4,7 @@ defmodule TicTacToe.MixProject do
   def project do
     [
       app: :tictactoe,
+      escript: escript(),
       version: "0.1.0",
       elixir: "~> 1.11",
       start_permanent: Mix.env() == :prod,
@@ -16,6 +17,10 @@ defmodule TicTacToe.MixProject do
     [
       extra_applications: [:logger]
     ]
+  end
+
+  defp escript do
+    [main_module: TicTacToe.CLI]
   end
 
   # Run "mix help deps" to learn about dependencies.
