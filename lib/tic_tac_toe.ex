@@ -26,7 +26,10 @@ defmodule TicTacToe.Game do
              {:ok, updated_game}
 
       existent_symbol ->
-        {:failure, "The position: (#{pos_x}, #{pos_y}) already has the symbol: #{existent_symbol}"}
+        {
+          :failure,
+          "The position: (#{pos_x}, #{pos_y}) already has the symbol: #{existent_symbol}"
+        }
     end
   end
 
