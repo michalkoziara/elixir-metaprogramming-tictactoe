@@ -1,15 +1,13 @@
 defmodule TicTacToe.Game do
+  use TicTacToe.BoardMatcher
+
   @moduledoc """
   Documentation for `TicTacToe`.
   """
 
   @symbols [:x, :o]
 
-  defstruct board: [
-              nil, nil, nil,
-              nil, nil, nil,
-              nil, nil, nil
-            ],
+  defstruct board: empty_board,
             next: :x,
             winner: nil
 
@@ -21,8 +19,8 @@ defmodule TicTacToe.Game do
     case Enum.at(game.board, position) do
       nil -> updated_game =
                %__MODULE__{game | board: List.replace_at(game.board, position, game.next)}
-               |> winner
-               |> next_turn
+               |> get_winner
+               |> get_next_turn
              {:ok, updated_game}
 
       existent_symbol ->
@@ -40,58 +38,21 @@ defmodule TicTacToe.Game do
     {:failure, error_message}
   end
 
-  def next_turn(%__MODULE__{next: :x} = game), do: %__MODULE__{game | next: :o}
-  def next_turn(%__MODULE__{next: :o} = game), do: %__MODULE__{game | next: :x}
+  def get_next_turn(%__MODULE__{next: :x} = game), do: %__MODULE__{game | next: :o}
+  def get_next_turn(%__MODULE__{next: :o} = game), do: %__MODULE__{game | next: :x}
 
-  def winner(%__MODULE__{} = game), do: %__MODULE__{game | winner: do_winner(game.board)}
+  def get_winner(%__MODULE__{} = game), do: %__MODULE__{game | winner: check_winner(game.board)}
 
-  defp do_winner([
-    s, s, s,
-    _, _, _,
-    _, _, _
-  ]) when s in @symbols, do: s
+  defp check_winner(match_row s, 0) when s in @symbols, do: s
+  defp check_winner(match_row s, 1) when s in @symbols, do: s
+  defp check_winner(match_row s, 2) when s in @symbols, do: s
 
-  defp do_winner([
-    _, _, _,
-    s, s, s,
-    _, _, _
-  ]) when s in @symbols, do: s
+  defp check_winner(match_col s, 0) when s in @symbols, do: s
+  defp check_winner(match_col s, 1) when s in @symbols, do: s
+  defp check_winner(match_col s, 2) when s in @symbols, do: s
 
-  defp do_winner([
-    _, _, _,
-    _, _, _,
-    s, s, s
-  ]) when s in @symbols, do: s
+  defp check_winner(match_diagonal s, :left_to_right) when s in @symbols, do: s
+  defp check_winner(match_diagonal s, :right_to_left) when s in @symbols, do: s
 
-  defp do_winner([
-    s, _, _,
-    s, _, _,
-    s, _, _
-  ]) when s in @symbols, do: s
-
-  defp do_winner([
-    _, s, _,
-    _, s, _,
-    _, s, _
-  ]) when s in @symbols, do: s
-
-  defp do_winner([
-    _, _, s,
-    _, _, s,
-    _, _, s
-  ]) when s in @symbols, do: s
-
-  defp do_winner([
-    s, _, _,
-    _, s, _,
-    _, _, s
-  ]) when s in @symbols, do: s
-
-  defp do_winner([
-    _, _, s,
-    _, s, _,
-    s, _, _
-  ]) when s in @symbols, do: s
-
-  defp do_winner(_), do: nil
+  defp check_winner(_), do: nil
 end
