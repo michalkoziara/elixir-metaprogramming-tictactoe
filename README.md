@@ -1,21 +1,9 @@
-# TicTacToe
+## Tic-Tac-Toe game done with Elixir macros
 
-**TODO: Add description**
+### Terminal-based Tic-Tac-Toe game that uses metaprogramming with macros.
 
-## Installation
+The goal of this project is to compare the metaprogramming capabilities of Elixir and C++ languages.
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `tictactoe` to your list of dependencies in `mix.exs`:
+This repository contains only source code related to the metaprogramming capabilities in Elixir. 
 
-```elixir
-def deps do
-  [
-    {:tictactoe, "~> 0.1.0"}
-  ]
-end
-```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/tictactoe](https://hexdocs.pm/tictactoe).
-
+The repository containing source code related to C++ can be found in the [michalkoziara/cpp-metaprogramming-tictactoe](https://github.com/michalkoziara/cpp-metaprogramming-tictactoe) repository.
